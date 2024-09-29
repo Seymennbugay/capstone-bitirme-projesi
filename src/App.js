@@ -7,6 +7,8 @@ import AuthorPage from './pages/AuthorPage';
 import BookBorrowingPage from './pages/BookBorrowingPage';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function App() {
   return (
