@@ -1,70 +1,118 @@
-# Getting Started with Create React App
+Library Management System
+Description
+This is a full-stack Library Management System designed for managing books, authors, publishers, categories, and book borrowings. The backend is built using Java Spring Boot with PostgreSQL for database management, and the frontend is developed using React.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Technologies Used
+Backend: Java Spring Boot, Spring Data JPA, PostgreSQL
+Frontend: React, Axios, React-Bootstrap
+Deployment: Docker, Render (for backend), Netlify (for frontend)
+API Documentation: Swagger
+Features
+The application allows the user to:
 
-## Available Scripts
+Manage Publishers (CRUD operations)
+Manage Categories (CRUD operations)
+Manage Books (CRUD operations)
+Manage Authors (CRUD operations)
+Borrow Books (CRUD operations)
+View and interact with a user-friendly interface built in React
+Responsive modals for error handling and user notifications
+Live Demo
+Backend: Backend Render Link (to be updated)
+Frontend: Frontend Netlify Link (to be updated)
+Installation Guide
+Backend Setup
+Clone the repository:
 
-In the project directory, you can run:
+bash
+Kodu kopyala
+git clone https://github.com/Seymennbugay/capstone-bitirme-projesi-backend.git
+cd capstone-bitirme-projesi-backend
+Configure environment variables: Update the application.properties file with your database credentials or provide a .env file with the following values:
 
-### `npm start`
+properties
+Kodu kopyala
+spring.datasource.url=jdbc:postgresql://${DBURL}/${DBNAME}
+spring.datasource.username=${DBUSERNAME}
+spring.datasource.password=${DBPASSWORD}
+Run the backend application:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Using Maven:
+bash
+Kodu kopyala
+mvn spring-boot:run
+Using Docker:
+bash
+Kodu kopyala
+docker-compose up --build
+Access the backend API: Visit http://localhost:8080/swagger-ui.html to view API documentation and interact with the backend using Swagger.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Frontend Setup
+Clone the repository:
 
-### `npm test`
+bash
+Kodu kopyala
+git clone https://github.com/Seymennbugay/capstone-bitirme-projesi.git
+cd library-frontend
+Install dependencies:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+bash
+Kodu kopyala
+npm install
+Run the application:
 
-### `npm run build`
+bash
+Kodu kopyala
+npm start
+Build the application for production:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+bash
+Kodu kopyala
+npm run build
+Deployment Instructions
+Backend (Render):
+Log in to Render and create a new Web Service.
+Connect the GitHub repository for the backend and configure the environment variables.
+Deploy the backend.
+Frontend (Netlify):
+Log in to Netlify and create a new site.
+Connect the GitHub repository for the frontend.
+Set the build command to:
+bash
+Kodu kopyala
+npm run build
+Set the publish directory to:
+bash
+Kodu kopyala
+build/
+Deploy the frontend.
+API Endpoints
+Publisher CRUD
+GET /api/v1/publishers: List all publishers
+POST /api/v1/publishers: Add a new publisher
+PUT /api/v1/publishers/{id}: Update publisher details
+DELETE /api/v1/publishers/{id}: Delete a publisher
+Category CRUD
+GET /api/v1/categories: List all categories
+POST /api/v1/categories: Add a new category
+PUT /api/v1/categories/{id}: Update category details
+DELETE /api/v1/categories/{id}: Delete a category
+Book CRUD
+GET /api/v1/books: List all books
+POST /api/v1/books: Add a new book
+PUT /api/v1/books/{id}: Update book details
+DELETE /api/v1/books/{id}: Delete a book
+Author CRUD
+GET /api/v1/authors: List all authors
+POST /api/v1/authors: Add a new author
+PUT /api/v1/authors/{id}: Update author details
+DELETE /api/v1/authors/{id}: Delete an author
+Book Borrowing CRUD
+GET /api/v1/borrows: List all borrowed books
+POST /api/v1/borrows: Borrow a book
+PUT /api/v1/borrows/{id}: Update borrow information
+DELETE /api/v1/borrows/{id}: Return a borrowed book
+Future Improvements
+Improve the UI/UX for a more user-friendly experience.
+Add authentication and authorization for different user roles (admin, user).
+Implement notifications for book return dates.
