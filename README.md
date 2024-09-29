@@ -1,3 +1,6 @@
+https://libraryseymen.netlify.app/     
+CANLI LİNK
+
 Library Management System
 Description
 This is a full-stack Library Management System designed for managing books, authors, publishers, categories, and book borrowings. The backend is built using Java Spring Boot with PostgreSQL for database management, and the frontend is developed using React.
