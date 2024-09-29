@@ -1,24 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import PublisherPage from './pages/PublisherPage';
+import CategoryPage from './pages/CategoryPage';
+import BookPage from './pages/BookPage';
+import AuthorPage from './pages/AuthorPage';
+import BookBorrowingPage from './pages/BookBorrowingPage';
+import Header from './components/Header';
+import Footer from './components/Footer';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/publishers" element={<PublisherPage />} />
+        <Route path="/categories" element={<CategoryPage />} />
+        <Route path="/books" element={<BookPage />} />
+        <Route path="/authors" element={<AuthorPage />} />
+        <Route path="/borrows" element={<BookBorrowingPage />} />
+      </Routes>
+      <Footer />
+    </>
   );
 }
 
