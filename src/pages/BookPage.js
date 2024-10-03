@@ -28,7 +28,7 @@ function BookPage() {
 
   // Kitap sil
   const deleteBook = (id) => {
-    axios.delete(constants.API_URL+`/api/v1/books/${id}`)
+    axios.delete(`http://localhost:8080/api/v1/books/${id}`)
       .then(() => {
         setBooks(books.filter(book => book.id !== id));
       })
@@ -37,7 +37,7 @@ function BookPage() {
 
   // Kitap güncelle
   const updateBook = () => {
-    axios.put(constants.API_URL+`/api/v1/books/${editBook.id}`, editBook)
+    axios.put(`http://localhost:8080/api/v1/books/${editBook.id}`, editBook)
       .then(() => {
         setBooks(books.map(book => (book.id === editBook.id ? editBook : book)));
         setEditBook(null); // Güncelleme sonrası düzenleme modunu kapat
