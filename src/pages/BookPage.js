@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ErrorModal from '../components/ErrorModal';
+import constants from '../constants';
 
 function BookPage() {
   const [books, setBooks] = useState([]);
@@ -10,14 +11,14 @@ function BookPage() {
 
   // Kitapları al
   useEffect(() => {
-    axios.get('http://localhost:8080/api/v1/books')
+    axios.get(constants.API_URL+'/api/v1/books')
       .then(response => setBooks(response.data))
       .catch(err => setError(err.message));
   }, []);
 
   // Kitap ekle
   const addBook = () => {
-    axios.post('http://localhost:8080/api/v1/books', newBook)
+    axios.post(constants.API_URL+'/api/v1/books', newBook)
       .then(response => {
         setBooks([...books, response.data]); // Yeni eklenen kitabı listeye ekle
         setNewBook({ name: '', publicationYear: '', stock: '', authorId: '', publisherId: '' }); // Formu sıfırla
@@ -27,7 +28,7 @@ function BookPage() {
 
   // Kitap sil
   const deleteBook = (id) => {
-    axios.delete(`http://localhost:8080/api/v1/books/${id}`)
+    axios.delete(constants.API_URL+`/api/v1/books/${id}`)
       .then(() => {
         setBooks(books.filter(book => book.id !== id));
       })
@@ -36,7 +37,7 @@ function BookPage() {
 
   // Kitap güncelle
   const updateBook = () => {
-    axios.put(`http://localhost:8080/api/v1/books/${editBook.id}`, editBook)
+    axios.put(constants.API_URL+`/api/v1/books/${editBook.id}`, editBook)
       .then(() => {
         setBooks(books.map(book => (book.id === editBook.id ? editBook : book)));
         setEditBook(null); // Güncelleme sonrası düzenleme modunu kapat
@@ -222,3 +223,4 @@ function BookPage() {
 }
 
 export default BookPage;
+
