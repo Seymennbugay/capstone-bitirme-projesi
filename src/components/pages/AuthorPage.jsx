@@ -14,7 +14,7 @@ function AuthorPage() {
   // Verileri al
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/v1/authors")
+      .get(import.meta.env.VITE_APP_BASE_URL + "api/v1/authors")
       .then((response) => setAuthors(response.data))
       .catch((err) => setError(err.message));
   }, []);
@@ -28,7 +28,7 @@ function AuthorPage() {
     }
 
     axios
-      .post("http://localhost:8080/api/v1/authors", newAuthor)
+      .post(import.meta.env.VITE_APP_BASE_URL + "api/v1/authors", newAuthor)
       .then((response) => {
         setAuthors([...authors, response.data]);
         setNewAuthor({ name: "", birthDate: "", country: "" }); // Formu sıfırla
@@ -39,7 +39,7 @@ function AuthorPage() {
   // Yazar sil
   const deleteAuthor = (id) => {
     axios
-      .delete(`http://localhost:8080/api/v1/authors/${id}`)
+      .delete(import.meta.env.VITE_APP_BASE_URL + `api/v1/authors/${id}`)
       .then(() => {
         setAuthors(authors.filter((author) => author.id !== id));
       })
@@ -54,7 +54,10 @@ function AuthorPage() {
     }
 
     axios
-      .put(`http://localhost:8080/api/v1/authors/${editAuthor.id}`, editAuthor)
+      .put(
+        import.meta.env.VITE_APP_BASE_URL + `api/v1/authors/${editAuthor.id}`,
+        editAuthor
+      )
       .then(() => {
         setAuthors(
           authors.map((author) =>
