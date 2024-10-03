@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ErrorModal from '../components/ErrorModal';
+import constants from '../constants';
 
 function CategoryPage() {
   const [categories, setCategories] = useState([]);
@@ -9,13 +10,13 @@ function CategoryPage() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:8080/api/v1/categories')
+    axios.get(constants.API_URL+'/api/v1/categories')
       .then(response => setCategories(response.data))
       .catch(err => setError(err.message));
   }, []);
 
   const addCategory = () => {
-    axios.post('http://localhost:8080/api/v1/categories', newCategory)
+    axios.post(constants.API_URL+'/api/v1/categories', newCategory)
       .then(response => {
         setCategories([...categories, response.data]);
         setNewCategory({ name: '', description: '' });
@@ -24,7 +25,7 @@ function CategoryPage() {
   };
 
   const deleteCategory = (id) => {
-    axios.delete(`http://localhost:8080/api/v1/categories/${id}`)
+    axios.delete(constants.API_URL+`/api/v1/categories/${id}`)
       .then(() => {
         setCategories(categories.filter(category => category.id !== id));
       })
@@ -32,7 +33,7 @@ function CategoryPage() {
   };
 
   const updateCategory = () => {
-    axios.put(`http://localhost:8080/api/v1/categories/${editCategory.id}`, editCategory)
+    axios.put(constants.API_URL+`/api/v1/categories/${editCategory.id}`, editCategory)
       .then(() => {
         setCategories(categories.map(category => (category.id === editCategory.id ? editCategory : category)));
         setEditCategory(null);
@@ -154,4 +155,5 @@ function CategoryPage() {
 }
 
 export default CategoryPage;
+
 
