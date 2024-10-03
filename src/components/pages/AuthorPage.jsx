@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 function AuthorPage() {
+  const [successStatus, setSuccessStatus] = useState(false);
+  const [successMsg, setSuccessMsg] = useState("");
   const [authors, setAuthors] = useState([]);
   const [newAuthor, setNewAuthor] = useState({
     name: "",
@@ -15,7 +17,9 @@ function AuthorPage() {
   useEffect(() => {
     axios
       .get(import.meta.env.VITE_APP_BASE_URL + "api/v1/authors")
-      .then((response) => setAuthors(response.data))
+      .then((response) => {
+        setAuthors(response.data);
+      })
       .catch((err) => setError(err.message));
   }, []);
 
@@ -32,6 +36,11 @@ function AuthorPage() {
       .then((response) => {
         setAuthors([...authors, response.data]);
         setNewAuthor({ name: "", birthDate: "", country: "" }); // Formu sıfırla
+        setSuccessStatus(true);
+        setSuccessMsg("Created");
+        setTimeout((e) => {
+          setSuccessMsg("");
+        }, 2000);
       })
       .catch((err) => setError(err.message));
   };
@@ -42,6 +51,11 @@ function AuthorPage() {
       .delete(import.meta.env.VITE_APP_BASE_URL + `api/v1/authors/${id}`)
       .then(() => {
         setAuthors(authors.filter((author) => author.id !== id));
+        setSuccessStatus(true);
+        setSuccessMsg("Deleted");
+        setTimeout((e) => {
+          setSuccessMsg("");
+        }, 2000);
       })
       .catch((err) => setError(err.message));
   };
@@ -65,6 +79,11 @@ function AuthorPage() {
           )
         );
         setEditAuthor(null); // Güncelleme sonrası düzenleme modunu kapat
+        setSuccessStatus(true);
+        setSuccessMsg("Updated");
+        setTimeout((e) => {
+          setSuccessMsg("");
+        }, 2000);
       })
       .catch((err) => setError(err.message));
   };
@@ -186,6 +205,7 @@ function AuthorPage() {
         <button onClick={addAuthor} style={submitButtonStyle}>
           Ekle
         </button>
+        {successStatus && <h3>{successMsg}</h3>}
       </div>
       {editAuthor && (
         <div style={formStyle}>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 function CategoryPage() {
+  const [successMsg, setSuccessMsg] = useState("");
   const [categories, setCategories] = useState([]);
   const [newCategory, setNewCategory] = useState({ name: "", description: "" });
   const [editCategory, setEditCategory] = useState(null);
@@ -23,6 +24,10 @@ function CategoryPage() {
       .then((response) => {
         setCategories([...categories, response.data]);
         setNewCategory({ name: "", description: "" });
+        setSuccessMsg("Created");
+        setTimeout((e) => {
+          setSuccessMsg("");
+        }, 2000);
       })
       .catch((err) => setError(err.message));
   };
@@ -32,6 +37,10 @@ function CategoryPage() {
       .delete(import.meta.env.VITE_APP_BASE_URL + `api/v1/categories/${id}`)
       .then(() => {
         setCategories(categories.filter((category) => category.id !== id));
+        setSuccessMsg("Deleted");
+        setTimeout((e) => {
+          setSuccessMsg("");
+        }, 2000);
       })
       .catch((err) => setError(err.message));
   };
@@ -50,6 +59,10 @@ function CategoryPage() {
           )
         );
         setEditCategory(null);
+        setSuccessMsg("Updated");
+        setTimeout((e) => {
+          setSuccessMsg("");
+        }, 2000);
       })
       .catch((err) => setError(err.message));
   };
@@ -160,6 +173,7 @@ function CategoryPage() {
         <button onClick={addCategory} style={submitButtonStyle}>
           Ekle
         </button>
+        <h3>{successMsg}</h3>
       </div>
       {editCategory && (
         <div style={formStyle}>

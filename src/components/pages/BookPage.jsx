@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 function BookPage() {
+  const [successMsg, setSuccessMsg] = useState("");
   const [books, setBooks] = useState([]);
   const [newBook, setNewBook] = useState({
     name: "",
@@ -34,6 +35,10 @@ function BookPage() {
           authorId: "",
           publisherId: "",
         }); // Formu sıfırla
+        setSuccessMsg("Created");
+        setTimeout((e) => {
+          setSuccessMsg("");
+        }, 2000);
       })
       .catch((err) => setError(err.message));
   };
@@ -44,6 +49,10 @@ function BookPage() {
       .delete(import.meta.env.VITE_APP_BASE_URL + `api/v1/books/${id}`)
       .then(() => {
         setBooks(books.filter((book) => book.id !== id));
+        setSuccessMsg("Deleted");
+        setTimeout((e) => {
+          setSuccessMsg("");
+        }, 2000);
       })
       .catch((err) => setError(err.message));
   };
@@ -60,6 +69,10 @@ function BookPage() {
           books.map((book) => (book.id === editBook.id ? editBook : book))
         );
         setEditBook(null); // Güncelleme sonrası düzenleme modunu kapat
+        setSuccessMsg("Updated");
+        setTimeout((e) => {
+          setSuccessMsg("");
+        }, 2000);
       })
       .catch((err) => setError(err.message));
   };
@@ -174,6 +187,7 @@ function BookPage() {
         <button onClick={addBook} style={buttonStyle}>
           Ekle
         </button>
+        <h3>{successMsg}</h3>
       </div>
 
       {/* Kitapları Listeleme */}

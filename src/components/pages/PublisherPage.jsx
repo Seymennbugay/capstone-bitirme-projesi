@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 function PublisherPage() {
+  const [successMsg, setSuccessMsg] = useState("");
   const [publishers, setPublishers] = useState([]);
   const [newPublisher, setNewPublisher] = useState({
     name: "",
@@ -53,6 +54,10 @@ function PublisherPage() {
       .then((response) => {
         setPublishers([...publishers, response.data]);
         setNewPublisher({ name: "", establishmentYear: "", address: "" });
+        setSuccessMsg("Created");
+        setTimeout((e) => {
+          setSuccessMsg("");
+        }, 2000);
       })
       .catch((err) => setError(err.message));
   };
@@ -63,6 +68,10 @@ function PublisherPage() {
       .delete(import.meta.env.VITE_APP_BASE_URL + `api/v1/publishers/${id}`)
       .then(() => {
         setPublishers(publishers.filter((publisher) => publisher.id !== id));
+        setSuccessMsg("Deleted");
+        setTimeout((e) => {
+          setSuccessMsg("");
+        }, 2000);
       })
       .catch((err) => setError(err.message));
   };
@@ -88,6 +97,10 @@ function PublisherPage() {
           )
         );
         setEditPublisher(null);
+        setSuccessMsg("Updated");
+        setTimeout((e) => {
+          setSuccessMsg("");
+        }, 2000);
       })
       .catch((err) => setError(err.message));
   };
@@ -210,6 +223,7 @@ function PublisherPage() {
         <button onClick={addPublisher} style={submitButtonStyle}>
           Ekle
         </button>
+        <h3>{successMsg}</h3>
       </div>
       {editPublisher && (
         <div style={formStyle}>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 function BookBorrowingPage() {
+  const [successMsg, setSuccessMsg] = useState("");
   const [borrows, setBorrows] = useState([]);
   const [newBorrow, setNewBorrow] = useState({
     borrowerName: "",
@@ -57,6 +58,10 @@ function BookBorrowingPage() {
         });
         console.log(borrows);
         setError("");
+        setSuccessMsg("Created");
+        setTimeout((e) => {
+          setSuccessMsg("");
+        }, 2000);
       })
       .catch((err) => setError(err.response?.data?.message || err.message));
   };
@@ -67,6 +72,10 @@ function BookBorrowingPage() {
       .delete(import.meta.env.VITE_APP_BASE_URL + `api/v1/borrows/${id}`)
       .then(() => {
         setBorrows(borrows.filter((borrow) => borrow.id !== id));
+        setSuccessMsg("Deleted");
+        setTimeout((e) => {
+          setSuccessMsg("");
+        }, 2000);
       })
       .catch((err) => setError(err.response?.data?.message || err.message));
   };
@@ -107,6 +116,10 @@ function BookBorrowingPage() {
         );
         setEditBorrow(null);
         setError("");
+        setSuccessMsg("Updated");
+        setTimeout((e) => {
+          setSuccessMsg("");
+        }, 2000);
       })
       .catch((err) => setError(err.response?.data?.message || err.message));
   };
@@ -191,6 +204,7 @@ function BookBorrowingPage() {
         <button onClick={addBorrow} style={buttonStyle}>
           Ekle
         </button>
+        <h3>{successMsg}</h3>
       </div>
 
       {/* Ödünç Alınan Kitapları Listeleme */}
