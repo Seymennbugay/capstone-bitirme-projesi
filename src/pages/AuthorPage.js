@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ErrorModal from '../components/ErrorModal';
+import constants from '../constants';
 
 function AuthorPage() {
   const [authors, setAuthors] = useState([]);
@@ -10,7 +11,7 @@ function AuthorPage() {
 
   // Verileri al
   useEffect(() => {
-    axios.get('http://localhost:8080/api/v1/authors')
+    axios.get(constants.API_URL+'/api/v1/authors')
       .then(response => setAuthors(response.data))
       .catch(err => setError(err.message));
   }, []);
@@ -23,7 +24,7 @@ function AuthorPage() {
       return;
     }
 
-    axios.post('http://localhost:8080/api/v1/authors', newAuthor)
+    axios.post(constants.API_URL+'/api/v1/authors', newAuthor)
       .then(response => {
         setAuthors([...authors, response.data]);
         setNewAuthor({ name: '', birthDate: '', country: '' }); // Formu sıfırla
@@ -33,7 +34,7 @@ function AuthorPage() {
 
   // Yazar sil
   const deleteAuthor = (id) => {
-    axios.delete(`http://localhost:8080/api/v1/authors/${id}`)
+    axios.delete(constants.API_URL+`/api/v1/authors/${id}`)
       .then(() => {
         setAuthors(authors.filter(author => author.id !== id));
       })
@@ -47,7 +48,7 @@ function AuthorPage() {
       return;
     }
 
-    axios.put(`http://localhost:8080/api/v1/authors/${editAuthor.id}`, editAuthor)
+    axios.put(constants.API_URL+`/api/v1/authors/${editAuthor.id}`, editAuthor)
       .then(() => {
         setAuthors(authors.map(author => (author.id === editAuthor.id ? editAuthor : author)));
         setEditAuthor(null); // Güncelleme sonrası düzenleme modunu kapat
