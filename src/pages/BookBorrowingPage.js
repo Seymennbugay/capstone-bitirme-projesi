@@ -50,7 +50,7 @@ function BookBorrowingPage() {
 
   // Ödünç alma sil
   const deleteBorrow = (id) => {
-    axios.delete(constants.API_URL+`/api/v1/borrows/${id}`)
+    axios.delete(`http://localhost:8080/api/v1/borrows/${id}`)
       .then(() => {
         setBorrows(borrows.filter(borrow => borrow.id !== id));
       })
@@ -74,7 +74,7 @@ function BookBorrowingPage() {
       }
     };
 
-    axios.put(constants.API_URL+`/api/v1/borrows/${editBorrow.id}`, borrowUpdateRequest)
+    axios.put(`http://localhost:8080/api/v1/borrows/${editBorrow.id}`, borrowUpdateRequest)
       .then(() => {
         setBorrows(borrows.map(borrow => (borrow.id === editBorrow.id ? editBorrow : borrow)));
         setEditBorrow(null);
@@ -225,3 +225,4 @@ function BookBorrowingPage() {
 }
 
 export default BookBorrowingPage;
+
