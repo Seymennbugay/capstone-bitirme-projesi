@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ErrorModal from '../components/ErrorModal';
+import constants from '../constants';
 
 function PublisherPage() {
   const [publishers, setPublishers] = useState([]);
@@ -10,7 +11,7 @@ function PublisherPage() {
 
   // Verileri al
   useEffect(() => {
-    axios.get('http://localhost:8080/api/v1/publishers')
+    axios.get(constants.API_URL+'/api/v1/publishers')
       .then(response => setPublishers(response.data))
       .catch(err => setError(err.message));
   }, []);
@@ -41,7 +42,7 @@ function PublisherPage() {
       return;
     }
 
-    axios.post('http://localhost:8080/api/v1/publishers', newPublisher)
+    axios.post(constants.API_URL+'/api/v1/publishers', newPublisher)
       .then(response => {
         setPublishers([...publishers, response.data]);
         setNewPublisher({ name: '', establishmentYear: '', address: '' });
@@ -51,7 +52,7 @@ function PublisherPage() {
 
   // Yayınevi sil
   const deletePublisher = (id) => {
-    axios.delete(`http://localhost:8080/api/v1/publishers/${id}`)
+    axios.delete(constants.API_URL+`/api/v1/publishers/${id}`)
       .then(() => {
         setPublishers(publishers.filter(publisher => publisher.id !== id));
       })
@@ -66,7 +67,7 @@ function PublisherPage() {
       return;
     }
 
-    axios.put(`http://localhost:8080/api/v1/publishers/${editPublisher.id}`, editPublisher)
+    axios.put(constants.API_URL+`/api/v1/publishers/${editPublisher.id}`, editPublisher)
       .then(() => {
         setPublishers(publishers.map(publisher => (publisher.id === editPublisher.id ? editPublisher : publisher)));
         setEditPublisher(null);
