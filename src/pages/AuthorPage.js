@@ -34,7 +34,7 @@ function AuthorPage() {
 
   // Yazar sil
   const deleteAuthor = (id) => {
-    axios.delete(constants.API_URL+`/api/v1/authors/${id}`)
+    axios.delete(`http://localhost:8080/api/v1/authors/${id}`)
       .then(() => {
         setAuthors(authors.filter(author => author.id !== id));
       })
@@ -48,7 +48,7 @@ function AuthorPage() {
       return;
     }
 
-    axios.put(constants.API_URL+`/api/v1/authors/${editAuthor.id}`, editAuthor)
+    axios.put(`http://localhost:8080/api/v1/authors/${editAuthor.id}`, editAuthor)
       .then(() => {
         setAuthors(authors.map(author => (author.id === editAuthor.id ? editAuthor : author)));
         setEditAuthor(null); // Güncelleme sonrası düzenleme modunu kapat
@@ -188,3 +188,4 @@ function AuthorPage() {
 }
 
 export default AuthorPage;
+;
