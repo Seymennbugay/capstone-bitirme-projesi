@@ -52,7 +52,7 @@ function PublisherPage() {
 
   // Yayınevi sil
   const deletePublisher = (id) => {
-    axios.delete(constants.API_URL+`/api/v1/publishers/${id}`)
+    axios.delete(`http://localhost:8080/api/v1/publishers/${id}`)
       .then(() => {
         setPublishers(publishers.filter(publisher => publisher.id !== id));
       })
@@ -67,7 +67,7 @@ function PublisherPage() {
       return;
     }
 
-    axios.put(constants.API_URL+`/api/v1/publishers/${editPublisher.id}`, editPublisher)
+    axios.put(`http://localhost:8080/api/v1/publishers/${editPublisher.id}`, editPublisher)
       .then(() => {
         setPublishers(publishers.map(publisher => (publisher.id === editPublisher.id ? editPublisher : publisher)));
         setEditPublisher(null);
