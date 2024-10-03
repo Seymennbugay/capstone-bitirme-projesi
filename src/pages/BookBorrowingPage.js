@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ErrorModal from '../components/ErrorModal';
+import constants from '../constants';
 
 function BookBorrowingPage() {
   const [borrows, setBorrows] = useState([]);
@@ -16,7 +17,7 @@ function BookBorrowingPage() {
 
   // Verileri al
   useEffect(() => {
-    axios.get('http://localhost:8080/api/v1/borrows')
+    axios.get(constants.API_URL+'/api/v1/borrows')
       .then(response => setBorrows(response.data))
       .catch(err => setError(err.message));
   }, []);
@@ -38,7 +39,7 @@ function BookBorrowingPage() {
       }
     };
 
-    axios.post('http://localhost:8080/api/v1/borrows', borrowRequest)
+    axios.post(constants.API_URL+'/api/v1/borrows', borrowRequest)
       .then(response => {
         setBorrows([...borrows, response.data]);
         setNewBorrow({ borrowerName: '', borrowerMail: '', borrowingDate: '', returnDate: '', bookId: '' });
@@ -49,7 +50,7 @@ function BookBorrowingPage() {
 
   // Ödünç alma sil
   const deleteBorrow = (id) => {
-    axios.delete(`http://localhost:8080/api/v1/borrows/${id}`)
+    axios.delete(constants.API_URL+`/api/v1/borrows/${id}`)
       .then(() => {
         setBorrows(borrows.filter(borrow => borrow.id !== id));
       })
@@ -73,7 +74,7 @@ function BookBorrowingPage() {
       }
     };
 
-    axios.put(`http://localhost:8080/api/v1/borrows/${editBorrow.id}`, borrowUpdateRequest)
+    axios.put(constants.API_URL+`/api/v1/borrows/${editBorrow.id}`, borrowUpdateRequest)
       .then(() => {
         setBorrows(borrows.map(borrow => (borrow.id === editBorrow.id ? editBorrow : borrow)));
         setEditBorrow(null);
